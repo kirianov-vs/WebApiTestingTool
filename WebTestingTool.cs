@@ -3,7 +3,7 @@ using System.IO;
 
 namespace WebApiTestingTool
 {
-    internal class Program
+    internal class WebTestingTool
     {
         public static string _pathOfRequestsFile = Directory.GetCurrentDirectory() + "\\ListOfRequests.txt";
         public static int count = System.IO.File.ReadAllLines(_pathOfRequestsFile).Length;
