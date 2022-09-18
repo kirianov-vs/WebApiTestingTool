@@ -23,14 +23,11 @@ namespace WebApiTestingTool
             }
             else
             {
-                //Thread[] threadsArray = new Thread[count];
                 Task[] threadsArray = new Task[count];
                 Console.WriteLine("\nRunning in parralel threads..\n");
                 for (int i = 0; i < count; i++)
                 {
                     int localNum = i;
-                    //threadsArray[i] = new Thread(() => httpWebRequest(localNum));
-                    //threadsArray[i].Start();
                     threadsArray[i] = Task.Factory.StartNew(() => httpWebRequest(localNum, count, _pathOfRequestsFile));
                 }
                 Task.WaitAll(threadsArray);
@@ -44,10 +41,8 @@ namespace WebApiTestingTool
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             try
             {
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine($"\nrequest #{i + 1} testing..");
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("\nRequest: " + System.IO.File.ReadAllLines(_pathOfRequestsFile)[i]);
+                WebTestingTool.WriteLineWithColor($"\nrequest #{i + 1} testing..", 15);
+                WebTestingTool.WriteLineWithColor("\nRequest: " + System.IO.File.ReadAllLines(_pathOfRequestsFile)[i], 14);
                 request.AutomaticDecompression = DecompressionMethods.GZip;
                 using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 using (Stream stream = response.GetResponseStream())
@@ -60,17 +55,14 @@ namespace WebApiTestingTool
             }
             catch
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("error - exception catched");
+                WebTestingTool.WriteLineWithColor("error - exception catched", 12);
                 errorCount++;
                 passedTestsCount = passedTestsCount - 1;
             }
             finally
             {
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine($"\nResponse: {html}\n");
-                Console.ForegroundColor = ConsoleColor.DarkGreen;
-                Console.WriteLine($"request #{i + 1} tested of total {count}");
+                WebTestingTool.WriteLineWithColor($"\nResponse: {html}\n", 9);
+                WebTestingTool.WriteLineWithColor($"request #{i + 1} tested of total {count}", 2);
                 passedTestsCount++;
             }
         }

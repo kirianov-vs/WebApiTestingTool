@@ -6,16 +6,18 @@ namespace WebApiTestingTool
     {
         public static void AllTestsCompleted(int errorCount, int passedTestsCount)
         {
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("\ntest completed...OK");
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"\n# of errors: {errorCount}");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"\n# PASSED tests: {passedTestsCount}");
-            Console.Beep(500, 200);
-            Console.Beep(500, 200);
-            Console.Beep(500, 200);
+            WebTestingTool.WriteLineWithColor("\ntest completed...OK", 11);
+            WebTestingTool.WriteLineWithColor($"\n# of errors: {errorCount}", 12);
+            WebTestingTool.WriteLineWithColor($"\n# PASSED tests: {passedTestsCount}", 10);
+            SoundSignalEnd();
             Console.ReadKey();
+        }
+
+        static void SoundSignalEnd()
+        {
+            Console.Beep(500, 200);
+            Console.Beep(500, 200);
+            Console.Beep(500, 200);
         }
     }
 }

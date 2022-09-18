@@ -12,18 +12,15 @@ namespace WebApiTestingTool
         {
             //Task.Factory.StartNew(() => SaveLog()); 
             ListOfTestInitialyze();
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("\npress any key to start testing...\n");
+            WriteLineWithColor("\npress any key to start testing...\n", 14);
             Console.ReadKey();
             TestExecuting.TestExecution(count, _pathOfRequestsFile);
         }
 
         static void ListOfTestInitialyze()
         {
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine($"# of tests in list {count}\n");
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Show the list ? Y\\N\n");
+            WriteLineWithColor($"# of tests in list {count}\n", 15);
+            WriteLineWithColor("Show the list ? Y\\N\n", 14);
             if (Console.ReadKey().Key == ConsoleKey.Y)
             {
                 Console.WriteLine("List of requests to test:\n");
@@ -36,6 +33,13 @@ namespace WebApiTestingTool
                 }
                 f.Close();
             }
+        }
+
+        public static void WriteLineWithColor(string text, int ForegroundColor)
+
+        {
+            Console.ForegroundColor = (ConsoleColor)ForegroundColor;
+            Console.WriteLine(text);
         }
 
 
